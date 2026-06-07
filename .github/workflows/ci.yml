@@ -1,0 +1,36 @@
+name: Day 9 REST API CI
+
+on:
+  push:
+    paths:
+      - "python/**"
+      - "database/**"
+  pull_request:
+    paths:
+      - "python/**"
+      - "database/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install flask requests
+
+      - name: Syntax check (compile python files)
+        run: |
+          python -m compileall python
+
+      - name: Run basic import test
+        run: |
+          python -c "import sys; sys.path.append('python'); import db; import api"
