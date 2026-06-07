@@ -71,6 +71,7 @@ def get_device(device_id):
 
     log("/devices/<id>", "GET")
 
+
     return jsonify(response(True, data={
         "id": d[0],
         "name": d[1],
